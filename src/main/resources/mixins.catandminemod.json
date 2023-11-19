@@ -1,0 +1,10 @@
+{
+  "compatibilityLevel": "JAVA_8",
+  "package": "com.catand.catandminemod.mixin",
+  "refmap": "refmap.catandminemod.json",
+  "mixins": [],
+  "client": [
+    "MixinChunk"
+  ],
+  "server": []
+}

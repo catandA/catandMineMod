@@ -34,6 +34,7 @@ minecraft {
 repositories {
     mavenCentral()
     maven { url = 'https://repo.spongepowered.org/maven' }
+    maven { url = 'https://repo.polyfrost.cc/releases' }
 }
 
 configurations {
@@ -48,6 +49,8 @@ dependencies {
         exclude module: 'gson'
     }
     annotationProcessor 'org.spongepowered:mixin:0.7.11-SNAPSHOT'
+    compileOnly("cc.polyfrost:oneconfig-1.8.9-forge:0.2.0-alpha+")
+    embed("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")
 }
 
 processResources {
@@ -83,5 +86,8 @@ jar {
         attributes 'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker'
         attributes 'TweakOrder': '0'
         attributes 'MixinConfigs': mod_mixin_configs.replace('${mod_id}', mod_id)
+        attributes "ModSide": "CLIENT"
+        attributes "ForceLoadAsMod": true
+        attributes "TweakClass": "cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker"
     }
 }
