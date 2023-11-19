@@ -34,7 +34,6 @@ public class ProfitCalculator {
         if (blocksBroken != 0 && !started) {
             started = true;
             startTime = System.currentTimeMillis();
-            runtime = (Utils.formatTime(System.currentTimeMillis() - startTime));
         }
     }
 
@@ -44,10 +43,17 @@ public class ProfitCalculator {
         if (mc.thePlayer == null || mc.theWorld == null) return;
         if (updateClock.passed()) {
             updateClock.reset();
-            updateClock.schedule(100);
+            updateClock.schedule(50);
             runtime = (Utils.formatTime(System.currentTimeMillis() - startTime));
-            float bph = Math.round((float) blocksBroken / 2 / (System.currentTimeMillis() - startTime) * 10000f) / 10f * 3600;
+            float bph = (float) blocksBroken / 2 / (System.currentTimeMillis() - startTime) * 10000f / 10f * 3600;
             blocksPerHour = (bph + " BPH");
         }
+    }
+    public static void reset() {
+        blocksBroken = 0;
+        runtime = "0h 0m 0s";
+        blocksPerHour = "0 BPH";
+        started = false;
+        startTime = 0;
     }
 }

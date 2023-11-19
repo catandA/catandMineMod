@@ -1,9 +1,11 @@
 package com.catand.catandminemod;
 
 import com.catand.catandminemod.functions.ProfitCalculator;
+import com.catand.catandminemod.functions.ProfitCalculatorCommand;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -26,6 +28,7 @@ public class CatandMineMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         config = new Config();
+        ClientCommandHandler.instance.registerCommand(new ProfitCalculatorCommand());
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ProfitCalculator());
     }
