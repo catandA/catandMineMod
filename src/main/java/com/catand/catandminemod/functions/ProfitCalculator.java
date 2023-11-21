@@ -1,7 +1,7 @@
 package com.catand.catandminemod.functions;
 
-import com.catand.catandminemod.Clock;
-import com.catand.catandminemod.Utils;
+import com.catand.catandminemod.Utils.Clock;
+import com.catand.catandminemod.Utils.Utils;
 import com.catand.catandminemod.events.BlockChangeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;

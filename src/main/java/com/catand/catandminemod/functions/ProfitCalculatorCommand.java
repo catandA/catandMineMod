@@ -1,6 +1,6 @@
 package com.catand.catandminemod.functions;
 
-import com.catand.catandminemod.LogUtils;
+import com.catand.catandminemod.Utils.LogUtils;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;

@@ -1,4 +1,4 @@
-package com.catand.catandminemod;
+package com.catand.catandminemod.Utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;

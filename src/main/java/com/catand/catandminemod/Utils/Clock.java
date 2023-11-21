@@ -1,4 +1,4 @@
-package com.catand.catandminemod;
+package com.catand.catandminemod.Utils;
 
 public class Clock {
     private long remainingTime;
