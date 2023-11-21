@@ -7,19 +7,19 @@ import cc.polyfrost.oneconfig.libs.universal.UMatrixStack;
 import cc.polyfrost.oneconfig.platform.Platform;
 import cc.polyfrost.oneconfig.renderer.NanoVGHelper;
 import cc.polyfrost.oneconfig.renderer.TextRenderer;
-import com.catand.catandminemod.functions.ProfitCalculator;
+import com.catand.catandminemod.functions.GemstoneTimer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Tuple;
 
 import java.util.ArrayList;
 
 // made with pain by tama & yuro <3 (and even more pain fixing it by May2Bee)
-public class ProfitCalculatorHUD extends BasicHud {
+public class GemstoneTimerHUD extends BasicHud {
     protected transient ArrayList<Tuple<String, String>> lines = new ArrayList<>();
     private final float iconWidth = 12 * scale;
     private final float iconHeight = 12 * scale;
 
-    public ProfitCalculatorHUD() {
+    public GemstoneTimerHUD() {
         super(true, 1f, 1f, 1, true, true, 2.5f, 2.5f, 2.5f, new OneColor(0, 0, 0, 150), false, 2, new OneColor(0, 0, 0, 240));
         addLines();
     }
@@ -99,8 +99,8 @@ public class ProfitCalculatorHUD extends BasicHud {
     public void addLines() {
         lines.clear();
 
-        lines.add(new Tuple<>((ProfitCalculator.blocksBroken / 2) + "", "/assets/bps.png"));
-        lines.add(new Tuple<>(ProfitCalculator.blocksPerHour, "/assets/bps.png"));
-        lines.add(new Tuple<>(ProfitCalculator.runtime, "/assets/runtime.png"));
+        lines.add(new Tuple<>((GemstoneTimer.blocksBroken / 2) + "", "/assets/bps.png"));
+        lines.add(new Tuple<>(GemstoneTimer.blocksPerHour, "/assets/bps.png"));
+        lines.add(new Tuple<>(GemstoneTimer.runtime, "/assets/runtime.png"));
     }
 }

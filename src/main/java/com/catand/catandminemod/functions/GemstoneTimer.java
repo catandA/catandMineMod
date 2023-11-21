@@ -1,5 +1,6 @@
 package com.catand.catandminemod.functions;
 
+import com.catand.catandminemod.CatandMineMod;
 import com.catand.catandminemod.Utils.Clock;
 import com.catand.catandminemod.Utils.Utils;
 import com.catand.catandminemod.events.BlockChangeEvent;
@@ -8,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-public class ProfitCalculator {
+public class GemstoneTimer {
     private static final Minecraft mc = Minecraft.getMinecraft();
     private final Clock updateClock = new Clock();
     public static long blocksBroken = 0;
@@ -19,6 +20,7 @@ public class ProfitCalculator {
 
     @SubscribeEvent
     public void onBlockChange(BlockChangeEvent event) {
+        if (!CatandMineMod.config.gemstoneTimer) return;
         if (event.old.getBlock() == Blocks.glass && event.update.getBlock() != Blocks.glass) {
             blocksBroken++;
         }
@@ -38,8 +40,8 @@ public class ProfitCalculator {
     }
 
     @SubscribeEvent
-    public void onTickUpdateProfit(TickEvent.ClientTickEvent event) {
-        if (!started) return;
+    public void onTickUpdateTimer(TickEvent.ClientTickEvent event) {
+        if (!CatandMineMod.config.gemstoneTimer || !started) return;
         if (mc.thePlayer == null || mc.theWorld == null) return;
         if (updateClock.passed()) {
             updateClock.reset();
@@ -49,6 +51,7 @@ public class ProfitCalculator {
             blocksPerHour = (bph + " BPH");
         }
     }
+
     public static void reset() {
         blocksBroken = 0;
         runtime = "0h 0m 0s";

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfitCalculatorCommand extends CommandBase {
+public class GemstoneTimerCommand extends CommandBase {
     @Override
     public String getCommandName() {
         return "cm";
@@ -35,7 +35,7 @@ public class ProfitCalculatorCommand extends CommandBase {
 
         switch (args[0]) {
             case "timereset": {
-                ProfitCalculator.reset();
+                GemstoneTimer.reset();
                 LogUtils.sendError("宝石计时器已重置");
                 return;
             }
