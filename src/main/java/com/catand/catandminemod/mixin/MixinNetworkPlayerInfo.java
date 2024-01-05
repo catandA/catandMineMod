@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = NetworkPlayerInfo.class)
 public abstract class MixinNetworkPlayerInfo {
 	private static CustomRank customRank = new CustomRank();
-	@Shadow
+/*	@Shadow
 	private IChatComponent displayName;
 
 	@Inject(method = "setDisplayName", at = @At("RETURN"))
@@ -36,5 +36,5 @@ public abstract class MixinNetworkPlayerInfo {
 				this.displayName = new ChatComponentText(customRank.replaceName(displayName.getFormattedText()));
 			}
 		}
-	}
+	}*/
 }
