@@ -2,7 +2,6 @@ package com.catand.catandminemod.mixin;
 
 import com.catand.catandminemod.functions.CustomRank;
 import com.catand.catandminemod.functions.RankList;
-import com.mojang.authlib.GameProfile;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.network.play.server.S38PacketPlayerListItem;
 import net.minecraft.util.ChatComponentText;
@@ -32,12 +31,10 @@ public abstract class MixinNetworkPlayerInfo {
 
 	@Inject(method = "<init>(Lnet/minecraft/network/play/server/S38PacketPlayerListItem$AddPlayerData;)V", at = @At("RETURN"))
 	public void NetworkPlayerInfo(S38PacketPlayerListItem.AddPlayerData p_i46295_1_, CallbackInfo ci) {
-		IChatComponent displayNameIn = p_i46295_1_.getDisplayName();
-		for(String key : RankList.rankMap.keySet()) {
-			if (displayNameIn.getFormattedText().contains(key)) {
-				displayNameIn = new ChatComponentText(customRank.replaceName(displayNameIn.getFormattedText()));
+		for (String key : RankList.rankMap.keySet()) {
+			if (displayName.getFormattedText().contains(key)) {
+				this.displayName = new ChatComponentText(customRank.replaceName(displayName.getFormattedText()));
 			}
 		}
-		this.displayName = displayNameIn;
 	}
 }
