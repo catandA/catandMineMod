@@ -1,6 +1,8 @@
 package com.catand.catandminemod;
 
+import com.catand.catandminemod.functions.CustomRank;
 import com.catand.catandminemod.functions.PixelPartySolver;
+import com.catand.catandminemod.functions.RankList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.client.Minecraft;
@@ -28,5 +30,7 @@ public class CatandMineMod {
         config = new Config();
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new PixelPartySolver());
+        MinecraftForge.EVENT_BUS.register(new CustomRank());
+        new Thread(RankList::getRankList).start();
     }
 }
