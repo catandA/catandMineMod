@@ -1,12 +1,9 @@
 package com.catand.catandminemod;
 
 import com.catand.catandminemod.functions.PixelPartySolver;
-import com.catand.catandminemod.functions.GemstoneTimer;
-import com.catand.catandminemod.functions.GemstoneTimerCommand;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -29,9 +26,7 @@ public class CatandMineMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         config = new Config();
-        ClientCommandHandler.instance.registerCommand(new GemstoneTimerCommand());
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new GemstoneTimer());
         MinecraftForge.EVENT_BUS.register(new PixelPartySolver());
     }
 }
