@@ -25,7 +25,7 @@ public class RankList {
 			JsonObject rankJsonJsonObject = rankJson.get(entry.getKey()).getAsJsonObject();
 			String name = rankJsonJsonObject.get("name").getAsString();
 			String rank = rankJsonJsonObject.get("rank").getAsString();
-			rankMap.put(name, rank + name + EnumChatFormatting.WHITE);
+			rankMap.put(name, rank + " " + name + EnumChatFormatting.WHITE);
 		}
 	}
 
