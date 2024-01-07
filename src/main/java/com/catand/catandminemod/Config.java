@@ -1,6 +1,7 @@
 package com.catand.catandminemod;
 
 import cc.polyfrost.oneconfig.config.annotations.Button;
+import cc.polyfrost.oneconfig.config.annotations.DualOption;
 import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
@@ -17,6 +18,10 @@ public class Config extends cc.polyfrost.oneconfig.config.Config {
     public void refreshRankList() {
         new Thread(RankList::getRankList).start();
     }
+    @DualOption(
+            name = "Display Type", category = RANK, subcategory = "Rank List", left = "Rank", right = "Nick"
+    )
+    public boolean rankListDisplayType = false;
     @Switch(
             name = "Pixel Party Solver", category = MINIGAME, subcategory = "Pixel Party"
     )

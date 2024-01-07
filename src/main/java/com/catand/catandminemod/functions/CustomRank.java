@@ -1,5 +1,6 @@
 package com.catand.catandminemod.functions;
 
+import com.catand.catandminemod.CatandMineMod;
 import com.catand.catandminemod.Object.RankUser;
 import com.catand.catandminemod.Utils.ChatLib;
 import net.minecraft.entity.Entity;
@@ -87,8 +88,14 @@ public class CustomRank {
 			//message = message.replace(name, color + name + "&r");
 
 			String dst = rankUser.getNameColor() + name + "&r";
-			if (!rankUser.getRank().isEmpty()) {
-				dst = rankUser.getBracketColor() + "[" + rankUser.getRank() + rankUser.getBracketColor() + "]&r" + " " + dst;
+			if (CatandMineMod.config.rankListDisplayType){
+				if (!rankUser.getNick().isEmpty()){
+					dst = rankUser.getBracketColor() + "[" + rankUser.getNick() + rankUser.getBracketColor() + "]&r" + " " + dst;
+				}
+			}else {
+				if (!rankUser.getRank().isEmpty()){
+					dst = rankUser.getBracketColor() + "[" + rankUser.getRank() + rankUser.getBracketColor() + "]&r" + " " + dst;
+				}
 			}
 			message = message.replace("ᄅ", dst);
 		}
