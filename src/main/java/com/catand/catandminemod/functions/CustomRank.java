@@ -2,6 +2,7 @@ package com.catand.catandminemod.functions;
 
 import com.catand.catandminemod.Object.RankUser;
 import com.catand.catandminemod.Utils.ChatLib;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
@@ -18,19 +19,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.catand.catandminemod.CatandMineMod.mc;
+
 public class CustomRank {
 
 	private static final HashMap<String, String> cachedColorName = new HashMap<>();
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void modifyArmorStandName(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
-		//TODO Pet name
-/*		if (Minecraft.getMinecraft().theWorld != null) {
+		if (mc.theWorld != null) {
 			Entity entity = event.entity;
 			if (entity.hasCustomName()) {
 				String nameWithRank = replaceName(entity.getCustomNameTag());
 				entity.setCustomNameTag(nameWithRank);
 			}
-		}*/
+		}
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -78,11 +80,11 @@ public class CustomRank {
 			RankUser rankUser = RankList.rankMap.get(name);
 			String color = rankUser.getNameColor();
 
-			String reg = "(§7|§.\\[(MVP|VIP)] |§.\\[(MVP|VIP)(§.)*\\++(§.)*] )(§.)*" + name;
+			String reg = "(§7|§.\\[(MVP|VIP)] |§.\\[(MVP|VIP)(§.)*\\++(§.)*] |(§.)*\\[(§.)*\\d+(§.)*] )(§.)*" + name;
 			message = message.replaceAll(reg, "ᄅ");
 
 
-			message = message.replace(name, color + name + "&r");
+			//message = message.replace(name, color + name + "&r");
 
 			String dst = rankUser.getNameColor() + name + "&r";
 			if (!rankUser.getRank().isEmpty()) {

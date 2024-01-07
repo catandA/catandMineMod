@@ -17,7 +17,7 @@ import java.util.Map;
 public class RankList {
 	public static JsonObject rankJson;
 	public static HashMap<String, RankUser> rankMap = new HashMap<>();
-	public static final String RANKLIST_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank_test/raw/master/CustomRank.json";
+	public static final String RANKLIST_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank/raw/master/CustomRank.json";
 
 	public static void getRankList() {
 		getRankListJson();
