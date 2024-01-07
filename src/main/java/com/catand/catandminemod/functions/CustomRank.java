@@ -23,9 +23,6 @@ import java.util.List;
 import static com.catand.catandminemod.CatandMineMod.mc;
 
 public class CustomRank {
-
-	private static final HashMap<String, String> cachedColorName = new HashMap<>();
-
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void modifyArmorStandName(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
 		if (mc.theWorld != null) {
@@ -76,7 +73,6 @@ public class CustomRank {
 		if (message == null) return null;
 		if (RankList.rankMap == null) return message;
 		String originMessage = message;
-		if (cachedColorName.containsKey(message)) return cachedColorName.get(message);
 
 		for (String name : RankList.rankMap.keySet()) {
 			RankUser rankUser = RankList.rankMap.get(name);
@@ -101,7 +97,6 @@ public class CustomRank {
 			message = message.replace("ᄅ", dst);
 		}
 		String res = ChatLib.addColor(message);
-		addToCache(originMessage, res);
 		return res;
 	}
 
@@ -122,17 +117,5 @@ public class CustomRank {
 		}
 		if (!str.toString().equals("")) res.add(new ChatComponentText(str.toString()));
 		return res;
-	}
-
-	private static void addToCache(String src, String dst) {
-		if (cachedColorName.size() > 10000) {
-			System.err.println("Color name cache too big! Clearing cache...");
-			cachedColorName.clear();
-		}
-		cachedColorName.put(src, dst);
-	}
-
-	public static int getCacheSize() {
-		return cachedColorName.size();
 	}
 }
