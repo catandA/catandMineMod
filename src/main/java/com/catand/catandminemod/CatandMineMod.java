@@ -20,7 +20,7 @@ public class CatandMineMod {
 
     // the actual mod version from gradle properties, should match with VERSION
     public static String MODVERSION = VERSION;
-    private static final Minecraft mc = Minecraft.getMinecraft();
+    public static final Minecraft mc = Minecraft.getMinecraft();
 
     public static Config config;
     public static Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();

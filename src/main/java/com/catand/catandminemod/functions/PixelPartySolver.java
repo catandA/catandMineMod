@@ -19,8 +19,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.catand.catandminemod.CatandMineMod.mc;
+
 public class PixelPartySolver {
-    private static final Minecraft mc = Minecraft.getMinecraft();
     static Block currentColorBlock = Blocks.air;
     static List<BlockPos> positions;
     static BlockPos closestPos;
@@ -38,11 +39,11 @@ public class PixelPartySolver {
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if (Minecraft.getMinecraft().theWorld == null || Minecraft.getMinecraft().thePlayer == null) {
+        if (mc.theWorld == null || mc.thePlayer == null) {
             return;
         }
         //遍历快捷栏
-        ItemStack stack = Minecraft.getMinecraft().thePlayer.inventory.mainInventory[8];
+        ItemStack stack = mc.thePlayer.inventory.mainInventory[8];
         if (stack != null) {
             currentColorBlock = Block.getBlockFromItem(stack.getItem());
         } else {
@@ -55,7 +56,7 @@ public class PixelPartySolver {
         if (Tick == RefreshTick) {
             positions = new ArrayList<BlockPos>();
             closestPos = null;
-            this.player = Minecraft.getMinecraft().thePlayer;
+            this.player = mc.thePlayer;
             NowX = StartX;
             NowY = StartY;
             NowZ = StartZ;
@@ -72,10 +73,10 @@ public class PixelPartySolver {
                 } else {
                     NowX = NowX + 1;
                 }
-                currentBlock = Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos(NowX, NowY, NowZ)).getBlock();
+                currentBlock = mc.theWorld.getBlockState(new BlockPos(NowX, NowY, NowZ)).getBlock();
                 if (currentBlock == currentColorBlock && mc.theWorld.getBlockState(new BlockPos(NowX, NowY, NowZ)).getValue(BlockColored.COLOR) == EnumDyeColor.byMetadata(stack.getMetadata())) {
                     positions.add(new BlockPos(NowX, NowY, NowZ));
-                    if (closestPos == null || Utils.getDistance(Minecraft.getMinecraft().thePlayer.getPosition(), new BlockPos(NowX, NowY, NowZ)) < Utils.getDistance(Minecraft.getMinecraft().thePlayer.getPosition(), closestPos)) {
+                    if (closestPos == null || Utils.getDistance(mc.thePlayer.getPosition(), new BlockPos(NowX, NowY, NowZ)) < Utils.getDistance(mc.thePlayer.getPosition(), closestPos)) {
                         closestPos = new BlockPos(NowX, NowY, NowZ);
                     }
                 }
@@ -93,7 +94,7 @@ public class PixelPartySolver {
     public void onRender(RenderWorldLastEvent event) {
         if (CatandMineMod.config.pixelPartySolver && positions != null && currentColorBlock instanceof BlockColored) {
             for (BlockPos position : positions) {
-                if (Minecraft.getMinecraft().theWorld != null) {
+                if (mc.theWorld != null) {
                     Utils.BoxWithTopESP(position, new Color(255, 255, 255, 255), false);
                     if (CatandMineMod.config.pixelPartySolverLine) {
                         Utils.renderTrace(closestPos, new Color(255, 0, 0, 255), 2);
