@@ -2,6 +2,7 @@ package com.catand.catandminemod.functions;
 
 import com.catand.catandminemod.CatandMineMod;
 import com.catand.catandminemod.Object.RankUser;
+import com.catand.catandminemod.Object.RankUserPet;
 import com.catand.catandminemod.Utils.ChatLib;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,8 +28,13 @@ public class CustomRank {
 		if (mc.theWorld != null) {
 			Entity entity = event.entity;
 			if (entity.hasCustomName()) {
-				String nameWithRank = replaceName(entity.getCustomNameTag());
-				entity.setCustomNameTag(nameWithRank);
+				if (entity.getCustomNameTag().contains("'s")) {
+					String nameWithRank = replacePetName(entity.getCustomNameTag());
+					entity.setCustomNameTag(nameWithRank);
+				} else {
+					String nameWithRank = replaceName(entity.getCustomNameTag());
+					entity.setCustomNameTag(nameWithRank);
+				}
 			}
 		}
 	}
@@ -93,6 +99,38 @@ public class CustomRank {
 				}
 			}
 			message = message.replace("ᄅ", dst);
+		}
+		return ChatLib.addColor(message);
+	}
+
+	public static String replacePetName(String message) {
+		if (message == null || RankList.rankMap == null) return message;
+
+		String unformatted = ChatLib.removeFormatting(message);
+		for (String name : RankList.rankMap.keySet()) {
+			if (name == null) continue;
+			RankUser rankUser = RankList.rankMap.get(name);
+			if (rankUser == null) continue;
+			String userNameColor = rankUser.getNameColor();
+			if (unformatted.matches("\\[Lv[0-9]+] " + name + "'s.*")) {
+				String res = message.replace(name, userNameColor + name +
+						ChatLib.getPrefix(ChatLib.removeColor(message.replaceAll(".*\\[.*] ", ""))));
+				res = ChatLib.addColor(res);
+				message = res;
+				if (rankUser.getPet() != null) {
+					for (RankUserPet pet : rankUser.getPet()) {
+						String petName = pet.getName();
+						String petDisplayName = pet.getDisplayName();
+						String petNameColor = pet.getNameColor();
+						String petBracketColor = pet.getBracketColor();
+						String petReg = "('s )(§.)*" + petName;
+						res = res.replaceAll(petReg, "ᄅ");
+						String petDst = "的 " + petBracketColor + "[" + petNameColor + petDisplayName + petBracketColor + "]&r";
+						res = res.replace("ᄅ", petDst);
+						message = res;
+					}
+				}
+			}
 		}
 		return ChatLib.addColor(message);
 	}

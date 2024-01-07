@@ -35,12 +35,12 @@ public class ChatLib {
 		if (text == null) return "";
 		Pattern pattern = Pattern.compile("((?<!\\\\))&(?![^0-9a-fklmnor]|$)");
 		Matcher matcher = pattern.matcher(text);
-		return matcher.replaceAll("\u00a7");
+		return matcher.replaceAll("§");
 	}
 
 	public static String removeColor(String text) {
 		if (text == null) return "";
-		Pattern pattern = Pattern.compile("((?<!\\\\))\u00a7(?![^0-9a-fklmnor]|$)");
+		Pattern pattern = Pattern.compile("((?<!\\\\))§(?![^0-9a-fklmnor]|$)");
 		Matcher matcher = pattern.matcher(text);
 		return matcher.replaceAll("&");
 	}
