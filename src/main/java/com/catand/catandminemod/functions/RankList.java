@@ -1,5 +1,7 @@
 package com.catand.catandminemod.functions;
 
+import com.catand.catandminemod.Object.RankUser;
+import com.catand.catandminemod.Utils.HttpUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -14,45 +16,27 @@ import java.util.Map;
 
 public class RankList {
 	public static JsonObject rankJson;
-	public static HashMap<String, String> rankMap = new HashMap<>();
-	public static final String RANKLIST_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank/raw/master/CustomRank.json";
+	public static HashMap<String, RankUser> rankMap = new HashMap<>();
+	public static final String RANKLIST_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank_test/raw/master/CustomRank.json";
 
 	public static void getRankList() {
 		getRankListJson();
 
 		rankMap = new HashMap<>();
 		for (Map.Entry<String, JsonElement> entry : rankJson.entrySet()) {
-			JsonObject rankJsonJsonObject = rankJson.get(entry.getKey()).getAsJsonObject();
-			String name = rankJsonJsonObject.get("name").getAsString();
+			String name = entry.getKey();
+			JsonObject rankJsonJsonObject = rankJson.get(name).getAsJsonObject();
 			String rank = rankJsonJsonObject.get("rank").getAsString();
-			rankMap.put(name, rank + " " + name + EnumChatFormatting.WHITE);
+			String nameColor = rankJsonJsonObject.get("nameColor").getAsString();
+			String bracketColor = rankJsonJsonObject.get("bracketColor").getAsString();
+			String nick = rankJsonJsonObject.get("nick").getAsString();
+			rankMap.put(name, new RankUser(rank, nameColor, bracketColor, nick, null));
 		}
 	}
 
 	private static void getRankListJson() {
-		try {
-			URL url = new URL(RANKLIST_URL);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.connect();
-
-			int responsecode = conn.getResponseCode();
-			if (responsecode != 200) {
-				throw new RuntimeException("HttpResponseCode: " + responsecode);
-			} else {
-				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-				String inputLine;
-				StringBuilder content = new StringBuilder();
-				while ((inputLine = in.readLine()) != null) {
-					content.append(inputLine);
-				}
-				in.close();
-				conn.disconnect();
-				Gson gson = new Gson();
-				rankJson = gson.fromJson(content.toString(), JsonObject.class);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		String json = HttpUtils.get(RANKLIST_URL);
+		Gson gson = new Gson();
+		rankJson = gson.fromJson(json, JsonObject.class);
 	}
 }
