@@ -19,6 +19,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.catand.catandminemod.CatandMineMod.mc;
 
@@ -115,6 +117,14 @@ public class CustomRank {
 			if (unformatted.matches("\\[Lv[0-9]+] " + name + "'s.*")) {
 				String res = message.replace(name, userNameColor + name +
 						ChatLib.getPrefix(ChatLib.removeColor(message.replaceAll(".*\\[.*] ", ""))));
+
+				Matcher matcher = Pattern.compile("\\[(§.)*Lv").matcher(res);
+				StringBuffer sb = new StringBuffer();
+				while (matcher.find()) {
+					matcher.appendReplacement(sb, matcher.group() + ".");
+				}
+				matcher.appendTail(sb);
+				res = sb.toString();
 				res = ChatLib.addColor(res);
 				message = res;
 				if (rankUser.getPet() != null) {
