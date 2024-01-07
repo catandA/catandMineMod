@@ -25,6 +25,7 @@ import static com.catand.catandminemod.CatandMineMod.mc;
 public class CustomRank {
 
 	private static final HashMap<String, String> cachedColorName = new HashMap<>();
+
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void modifyArmorStandName(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
 		if (mc.theWorld != null) {
@@ -88,12 +89,12 @@ public class CustomRank {
 			//message = message.replace(name, color + name + "&r");
 
 			String dst = rankUser.getNameColor() + name + "&r";
-			if (CatandMineMod.config.rankListDisplayType){
-				if (!rankUser.getNick().isEmpty()){
+			if (CatandMineMod.config.rankListDisplayType) {
+				if (!rankUser.getNick().isEmpty()) {
 					dst = rankUser.getBracketColor() + "[" + rankUser.getNick() + rankUser.getBracketColor() + "]&r" + " " + dst;
 				}
-			}else {
-				if (!rankUser.getRank().isEmpty()){
+			} else {
+				if (!rankUser.getRank().isEmpty()) {
 					dst = rankUser.getBracketColor() + "[" + rankUser.getRank() + rankUser.getBracketColor() + "]&r" + " " + dst;
 				}
 			}
@@ -103,6 +104,7 @@ public class CustomRank {
 		addToCache(originMessage, res);
 		return res;
 	}
+
 	private static List<IChatComponent> compactSiblings(List<IChatComponent> siblings) {
 		StringBuilder str = new StringBuilder();
 		List<IChatComponent> res = new ArrayList<>();
