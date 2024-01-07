@@ -17,7 +17,6 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static com.catand.catandminemod.CatandMineMod.mc;
@@ -72,39 +71,36 @@ public class CustomRank {
 	public static String replaceName(String message) {
 		if (message == null) return null;
 		if (RankList.rankMap == null) return message;
-		String originMessage = message;
 
 		for (String name : RankList.rankMap.keySet()) {
+			if (name == null) continue;
 			RankUser rankUser = RankList.rankMap.get(name);
-			String color = rankUser.getNameColor();
+			if (rankUser == null) continue;
+			String nameColor = rankUser.getNameColor();
+			String bracketColor = rankUser.getBracketColor();
 
 			String reg = "(§7|§.\\[(MVP|VIP)] |§.\\[(MVP|VIP)(§.)*\\++(§.)*] |(§.)*\\[(§.)*\\d+(§.)*] )(§.)*" + name;
 			message = message.replaceAll(reg, "ᄅ");
 
-
-			//message = message.replace(name, color + name + "&r");
-
-			String dst = rankUser.getNameColor() + name + "&r";
+			String dst = nameColor + name + "&r";
 			if (CatandMineMod.config.rankListDisplayType) {
 				if (!rankUser.getNick().isEmpty()) {
-					dst = rankUser.getBracketColor() + "[" + rankUser.getNick() + rankUser.getBracketColor() + "]&r" + " " + dst;
+					dst = bracketColor + "[" + rankUser.getNick() + bracketColor + "]&r" + " " + dst;
 				}
 			} else {
 				if (!rankUser.getRank().isEmpty()) {
-					dst = rankUser.getBracketColor() + "[" + rankUser.getRank() + rankUser.getBracketColor() + "]&r" + " " + dst;
+					dst = bracketColor + "[" + rankUser.getRank() + bracketColor + "]&r" + " " + dst;
 				}
 			}
 			message = message.replace("ᄅ", dst);
 		}
-		String res = ChatLib.addColor(message);
-		return res;
+		return ChatLib.addColor(message);
 	}
 
 	private static List<IChatComponent> compactSiblings(List<IChatComponent> siblings) {
 		StringBuilder str = new StringBuilder();
 		List<IChatComponent> res = new ArrayList<>();
-		for (int i = 0; i < siblings.size(); i++) {
-			IChatComponent component = siblings.get(i);
+		for (IChatComponent component : siblings) {
 			ClickEvent clickEvent = component.getChatStyle().getChatClickEvent();
 			HoverEvent hoverEvent = component.getChatStyle().getChatHoverEvent();
 			if ((clickEvent == null || clickEvent.getAction() == ClickEvent.Action.SUGGEST_COMMAND) && hoverEvent == null) {
@@ -115,7 +111,7 @@ public class CustomRank {
 				str = new StringBuilder();
 			}
 		}
-		if (!str.toString().equals("")) res.add(new ChatComponentText(str.toString()));
+		if (!str.toString().isEmpty()) res.add(new ChatComponentText(str.toString()));
 		return res;
 	}
 }
