@@ -115,18 +115,11 @@ public class CustomRank {
 			if (rankUser == null) continue;
 			String userNameColor = rankUser.getNameColor();
 			if (unformatted.matches("\\[Lv[0-9]+] " + name + "'s.*")) {
+				// 修改玩家名字
 				String res = message.replace(name, userNameColor + name +
 						ChatLib.getPrefix(ChatLib.removeColor(message.replaceAll(".*\\[.*] ", ""))));
 
-				Matcher matcher = Pattern.compile("\\[(§.)*Lv").matcher(res);
-				StringBuffer sb = new StringBuffer();
-				while (matcher.find()) {
-					matcher.appendReplacement(sb, matcher.group() + ".");
-				}
-				matcher.appendTail(sb);
-				res = sb.toString();
-				res = ChatLib.addColor(res);
-				message = res;
+				// 修改pet名字
 				if (rankUser.getPet() != null) {
 					for (RankUserPet pet : rankUser.getPet()) {
 						String petName = pet.getName();
@@ -137,9 +130,20 @@ public class CustomRank {
 						res = res.replaceAll(petReg, "ᄅ");
 						String petDst = "的 " + petBracketColor + "[" + petNameColor + petDisplayName + petBracketColor + "]&r";
 						res = res.replace("ᄅ", petDst);
-						message = res;
 					}
 				}
+
+				// 添加特殊符号，防止重复替换
+				Matcher matcher = Pattern.compile("\\[(§.)*Lv").matcher(res);
+				StringBuffer sb = new StringBuffer();
+				while (matcher.find()) {
+					matcher.appendReplacement(sb, matcher.group() + ".");
+				}
+				matcher.appendTail(sb);
+				res = sb.toString();
+				res = ChatLib.addColor(res);
+				message = res;
+
 			}
 		}
 		return ChatLib.addColor(message);
