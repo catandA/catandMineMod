@@ -13,38 +13,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HttpUtils {
-	public static String get(String url, List<BasicNameValuePair> list) {
+	public static String get(String url, List<BasicNameValuePair> list) throws Exception {
 		String response = null;
-		try {
-			URL urlObj = new URL(url);
-			String params = EntityUtils.toString(new UrlEncodedFormEntity(list, Consts.UTF_8));
-			if (!params.isEmpty()) url = url + "?" + params;
+		URL urlObj = new URL(url);
+		String params = EntityUtils.toString(new UrlEncodedFormEntity(list, Consts.UTF_8));
+		if (!params.isEmpty()) url = url + "?" + params;
 
-			HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
-			conn.setRequestMethod("GET");
-			conn.connect();
+		HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+		conn.setRequestMethod("GET");
+		conn.connect();
 
-			int responsecode = conn.getResponseCode();
-			if (responsecode != 200) {
-				throw new RuntimeException("HttpResponseCode: " + responsecode);
-			} else {
-				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), Consts.UTF_8));
-				String inputLine;
-				StringBuilder content = new StringBuilder();
-				while ((inputLine = in.readLine()) != null) {
-					content.append(inputLine);
-				}
-				in.close();
-				conn.disconnect();
-				return content.toString();
+		int responsecode = conn.getResponseCode();
+		if (responsecode != 200) {
+			throw new RuntimeException("HttpResponseCode: " + responsecode);
+		} else {
+			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), Consts.UTF_8));
+			String inputLine;
+			StringBuilder content = new StringBuilder();
+			while ((inputLine = in.readLine()) != null) {
+				content.append(inputLine);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			in.close();
+			conn.disconnect();
+			return content.toString();
 		}
-		return response;
 	}
 
-	public static String get(String url) {
+	public static String get(String url) throws Exception {
 		return get(url, new ArrayList<>());
 	}
 }

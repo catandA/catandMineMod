@@ -3,18 +3,28 @@ package com.catand.catandminemod.Object;
 import java.util.ArrayList;
 
 public class RankUser {
-	private String rank;
-	private String nameColor;
-	private String bracketColor;
-	private String nick;
-	private ArrayList<RankUserPet> pet;
+	private String name;
+	private final String rank;
+	private final String nameColor;
+	private final String bracketColor;
+	private final String nick;
+	private final ArrayList<RankUserPet> pet;
 
-	public RankUser(String rank, String nameColor, String bracketColor, String nick, ArrayList<RankUserPet> pet) {
+	public RankUser(String name, String rank, String nameColor, String bracketColor, String nick, ArrayList<RankUserPet> pet) {
+		this.name = name;
 		this.rank = rank;
 		this.nameColor = nameColor;
 		this.bracketColor = bracketColor;
 		this.nick = nick;
 		this.pet = pet;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public String getRank() {

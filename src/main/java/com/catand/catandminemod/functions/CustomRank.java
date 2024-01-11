@@ -80,10 +80,11 @@ public class CustomRank {
 		if (message == null) return null;
 		if (RankList.rankMap == null) return message;
 
-		for (String name : RankList.rankMap.keySet()) {
-			if (name == null) continue;
-			RankUser rankUser = RankList.rankMap.get(name);
+		for (String uuid : RankList.rankMap.keySet()) {
+			if (uuid == null) continue;
+			RankUser rankUser = RankList.rankMap.get(uuid);
 			if (rankUser == null) continue;
+			String name = rankUser.getName();
 			String nameColor = rankUser.getNameColor();
 			String bracketColor = rankUser.getBracketColor();
 
@@ -109,10 +110,11 @@ public class CustomRank {
 		if (message == null || RankList.rankMap == null) return message;
 
 		String unformatted = ChatLib.removeFormatting(message);
-		for (String name : RankList.rankMap.keySet()) {
-			if (name == null) continue;
-			RankUser rankUser = RankList.rankMap.get(name);
+		for (String uuid : RankList.rankMap.keySet()) {
+			if (uuid == null) continue;
+			RankUser rankUser = RankList.rankMap.get(uuid);
 			if (rankUser == null) continue;
+			String name = rankUser.getName();
 			String userNameColor = rankUser.getNameColor();
 			if (unformatted.matches("\\[Lv[0-9]+] " + name + "'s.*")) {
 				// 修改玩家名字
