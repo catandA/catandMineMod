@@ -55,9 +55,9 @@ public class RankList {
 							String petBracketColor = petJsonJsonObject.get("bracketColor").getAsString();
 							pet.add(new RankUserPet(petName, petNameColor, petBracketColor, petDisplayName));
 						}
-						rankMap.put(name, new RankUser(name, rank, nameColor, bracketColor, nick, pet));
+						rankMap.put(uuid, new RankUser(name, rank, nameColor, bracketColor, nick, pet));
 					} else
-						rankMap.put(name, new RankUser(name, rank, nameColor, bracketColor, nick, null));
+						rankMap.put(uuid, new RankUser(name, rank, nameColor, bracketColor, nick, null));
 				} else {
 					LogUtils.sendError("uuid: " + uuid + "获取失败");
 				}

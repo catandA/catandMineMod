@@ -4,10 +4,13 @@ import com.catand.catandminemod.CatandMineMod;
 import com.catand.catandminemod.Object.RankUser;
 import com.catand.catandminemod.Object.RankUserPet;
 import com.catand.catandminemod.Utils.ChatLib;
+import com.catand.catandminemod.Utils.LogUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
+import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -25,10 +28,19 @@ import java.util.regex.Pattern;
 import static com.catand.catandminemod.CatandMineMod.mc;
 
 public class CustomRank {
+	private static Pattern nameTagPattern1 = Pattern.compile("(§.\\[§.\\d+§.] )(§.)*$");
+	private static Pattern nameTagPattern2 = Pattern.compile("(§.\\[(MVP|VIP)] |§.\\[(MVP|VIP)(§.)*\\++(§.)*] )(§.)*$");
+
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void modifyArmorStandName(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
 		if (mc.theWorld != null) {
 			Entity entity = event.entity;
+			if (entity instanceof EntityPlayer) {
+				ScorePlayerTeam team = (ScorePlayerTeam) ((EntityPlayer) entity).getTeam();
+				if (team != null) {
+					replacePlayerNameTag((EntityPlayer) entity);
+				}
+			}
 			if (entity.hasCustomName()) {
 				if (entity.getCustomNameTag().contains("'s")) {
 					String nameWithRank = replacePetName(entity.getCustomNameTag());
@@ -101,6 +113,50 @@ public class CustomRank {
 			message = message.replace("ᄅ", dst);
 		}
 		return ChatLib.addColor(message);
+	}
+
+	public static void replacePlayerNameTag(EntityPlayer player) {
+		if (RankList.rankMap == null) return;
+
+		for (String uuid : RankList.rankMap.keySet()) {
+			if (uuid == null) continue;
+			String uniqueID = player.getUniqueID().toString().toLowerCase().replace("-", "");
+			if (!uuid.equals(uniqueID)) continue;
+			RankUser rankUser = RankList.rankMap.get(uuid);
+			if (rankUser == null) continue;
+			String nameColor = rankUser.getNameColor();
+			String bracketColor = rankUser.getBracketColor();
+
+			ScorePlayerTeam team = (ScorePlayerTeam) player.getTeam();
+			String teamPrefix = team.getColorPrefix();
+			Matcher matcher = nameTagPattern1.matcher(teamPrefix);
+			if (matcher.find()) {
+				if (CatandMineMod.config.rankListDisplayType) {
+					if (!rankUser.getNick().isEmpty()) {
+						team.setNamePrefix(teamPrefix.substring(0, teamPrefix.length() - 2) + bracketColor + "[" + rankUser.getNick() + bracketColor + "]§r " + nameColor);
+					}
+				} else {
+					if (!rankUser.getRank().isEmpty()) {
+						team.setNamePrefix(teamPrefix.substring(0, teamPrefix.length() - 2) + bracketColor + "[" + rankUser.getRank() + bracketColor + "]§r " + nameColor);
+					}
+				}
+				return;
+			} else {
+				matcher = nameTagPattern2.matcher(teamPrefix);
+				if (matcher.find()) {
+					if (CatandMineMod.config.rankListDisplayType) {
+						if (!rankUser.getNick().isEmpty()) {
+							team.setNamePrefix(teamPrefix + bracketColor + "[" + rankUser.getNick() + bracketColor + "]§r " + nameColor);
+						}
+					} else {
+						if (!rankUser.getRank().isEmpty()) {
+							team.setNamePrefix(teamPrefix + bracketColor + "[" + rankUser.getRank() + bracketColor + "]§r " + nameColor);
+						}
+					}
+					return;
+				}
+			}
+		}
 	}
 
 	public static String replacePetName(String message) {
