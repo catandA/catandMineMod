@@ -10,20 +10,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RankList {
 	public static JsonObject rankJson;
-	public static HashMap<String, RankUser> rankMap = new HashMap<>();
+	public static ConcurrentHashMap<String, RankUser> rankMap = new ConcurrentHashMap<>();
 	public static final String RANKLIST_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank_v2/raw/master/CustomRank.json";
 	static final int MAX_RETRIES = 3;
 
 	public static void getRankList() {
 		getRankListJson();
 
-		rankMap = new HashMap<>();
+		rankMap = new ConcurrentHashMap<>();
 		for (Map.Entry<String, JsonElement> entry : rankJson.entrySet()) {
 			String uuid = entry.getKey();
 			JsonObject rankJsonJsonObject = rankJson.get(uuid).getAsJsonObject();
