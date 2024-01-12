@@ -16,6 +16,7 @@ public class RankUserPet {
 	public String getName() {
 		return name;
 	}
+
 	public String getDisplayName() {
 		return displayName;
 	}

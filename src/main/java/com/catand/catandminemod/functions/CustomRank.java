@@ -33,9 +33,6 @@ public class CustomRank {
 				if (entity.getCustomNameTag().contains("'s")) {
 					String nameWithRank = replacePetName(entity.getCustomNameTag());
 					entity.setCustomNameTag(nameWithRank);
-				} else {
-					String nameWithRank = replaceName(entity.getCustomNameTag());
-					entity.setCustomNameTag(nameWithRank);
 				}
 			}
 		}
