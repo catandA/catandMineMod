@@ -4,7 +4,6 @@ import com.catand.catandminemod.CatandMineMod;
 import com.catand.catandminemod.Object.RankUser;
 import com.catand.catandminemod.Object.RankUserPet;
 import com.catand.catandminemod.Utils.ChatLib;
-import com.catand.catandminemod.Utils.LogUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,16 +34,20 @@ public class CustomRank {
 	public void modifyArmorStandName(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
 		if (mc.theWorld != null) {
 			Entity entity = event.entity;
-			if (entity instanceof EntityPlayer) {
-				ScorePlayerTeam team = (ScorePlayerTeam) ((EntityPlayer) entity).getTeam();
-				if (team != null) {
-					replacePlayerNameTag((EntityPlayer) entity);
+			if (CatandMineMod.config.displayPlayer) {
+				if (entity instanceof EntityPlayer) {
+					ScorePlayerTeam team = (ScorePlayerTeam) ((EntityPlayer) entity).getTeam();
+					if (team != null) {
+						replacePlayerNameTag((EntityPlayer) entity);
+					}
 				}
 			}
-			if (entity.hasCustomName()) {
-				if (entity.getCustomNameTag().contains("'s")) {
-					String nameWithRank = replacePetName(entity.getCustomNameTag());
-					entity.setCustomNameTag(nameWithRank);
+			if (CatandMineMod.config.displayPet) {
+				if (entity.hasCustomName()) {
+					if (entity.getCustomNameTag().contains("'s")) {
+						String nameWithRank = replacePetName(entity.getCustomNameTag());
+						entity.setCustomNameTag(nameWithRank);
+					}
 				}
 			}
 		}
@@ -53,6 +56,7 @@ public class CustomRank {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void modifyChatMessage(ClientChatReceivedEvent event) {
 		if (event.type == 2) return;
+		if (!CatandMineMod.config.displayChatMessage) return;
 		event.message = convert(event.message.createCopy());
 	}
 

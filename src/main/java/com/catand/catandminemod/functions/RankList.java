@@ -1,5 +1,6 @@
 package com.catand.catandminemod.functions;
 
+import com.catand.catandminemod.CatandMineMod;
 import com.catand.catandminemod.Object.RankUser;
 import com.catand.catandminemod.Object.RankUserPet;
 import com.catand.catandminemod.Utils.HttpUtils;
@@ -17,7 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class RankList {
 	public static JsonObject rankJson;
 	public static ConcurrentHashMap<String, RankUser> rankMap = new ConcurrentHashMap<>();
-	public static final String RANKLIST_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank_v2/raw/master/CustomRank.json";
+	public static final String RANKLIST_GITEE_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank_v2/raw/master/CustomRank.json";
+	public static final String RANKLIST_GITHUB_URL = "https://raw.githubusercontent.com/catandA/catandMineModCustomRank_v2/master/CustomRank.json";
 	static final int MAX_RETRIES = 3;
 
 	public static void getRankList() {
@@ -66,14 +68,31 @@ public class RankList {
 	}
 
 	private static void getRankListJson() {
-		try {
-			String json = HttpUtils.get(RANKLIST_URL);
-			Gson gson = new Gson();
-			rankJson = gson.fromJson(json, JsonObject.class);
-			LogUtils.sendSuccess("获取CustomRank.json成功");
-		} catch (Exception e) {
-			LogUtils.sendError("获取CustomRank.json失败");
-			e.printStackTrace();
+		String json = null;
+		if (CatandMineMod.config.dataSource) {
+			for (int i = 0; i < MAX_RETRIES; i++) {
+				try {
+					json = HttpUtils.get(RANKLIST_GITHUB_URL);
+				} catch (Exception e) {
+					LogUtils.sendError("从Github获取CustomRank.json失败，重试次数: " + (i + 1));
+					e.printStackTrace();
+				}
+			}
+		} else {
+			for (int i = 0; i < MAX_RETRIES; i++) {
+				try {
+					json = HttpUtils.get(RANKLIST_GITEE_URL);
+				} catch (Exception e) {
+					LogUtils.sendError("从Gitee获取CustomRank.json失败，重试次数: " + (i + 1));
+					e.printStackTrace();
+				}
+			}
 		}
+		if (json == null) {
+			LogUtils.sendError("CustomRank.json获取了" + MAX_RETRIES + "次都失败, 网不太行啊╮(╯▽╰)╭, 试试换个数据源?");
+		}
+		Gson gson = new Gson();
+		rankJson = gson.fromJson(json, JsonObject.class);
+		LogUtils.sendSuccess("CustomRank.json获取成功");
 	}
 }
