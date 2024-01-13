@@ -25,6 +25,7 @@ public class RankList {
 	public static void getRankList() {
 		getRankListJson();
 
+		if (rankJson == null) return;
 		rankMap = new ConcurrentHashMap<>();
 		for (Map.Entry<String, JsonElement> entry : rankJson.entrySet()) {
 			String uuid = entry.getKey();
@@ -90,6 +91,7 @@ public class RankList {
 		}
 		if (json == null) {
 			LogUtils.sendError("CustomRank.json获取了" + MAX_RETRIES + "次都失败, 网不太行啊╮(╯▽╰)╭, 试试换个数据源?");
+			return;
 		}
 		Gson gson = new Gson();
 		rankJson = gson.fromJson(json, JsonObject.class);

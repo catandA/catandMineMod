@@ -3,6 +3,7 @@ package com.catand.catandminemod;
 import com.catand.catandminemod.functions.CustomRank;
 import com.catand.catandminemod.functions.PixelPartySolver;
 import com.catand.catandminemod.functions.RankList;
+import com.catand.catandminemod.functions.UpdateReminder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.client.Minecraft;
@@ -16,7 +17,7 @@ public class CatandMineMod {
 	public static final String MODID = "catandminemod";
 	public static final String NAME = "catand Mine Mod";
 	// Version gets automatically set. If you wish to change it, change it in the build.gradle.kts file
-	public static final String VERSION = "%%VERSION%%";
+	public static final String VERSION = "2.2.0";
 
 	// the actual mod version from gradle properties, should match with VERSION
 	public static String MODVERSION = VERSION;
@@ -31,6 +32,7 @@ public class CatandMineMod {
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new PixelPartySolver());
 		MinecraftForge.EVENT_BUS.register(new CustomRank());
+		MinecraftForge.EVENT_BUS.register(new UpdateReminder());
 		new Thread(RankList::getRankList).start();
 	}
 }

@@ -6,9 +6,11 @@ import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import com.catand.catandminemod.functions.RankList;
+import com.catand.catandminemod.functions.UpdateReminder;
 
 public class Config extends cc.polyfrost.oneconfig.config.Config {
 	private transient static final String RANK = "Rank";
+	private transient static final String GENERAL = "General";
 	private transient static final String SKYBLOCK = "Skyblock";
 	private transient static final String MINIGAME = "Minigame";
 	private transient static final String HUD = "HUD";
@@ -29,15 +31,25 @@ public class Config extends cc.polyfrost.oneconfig.config.Config {
 			name = "Display Type", category = RANK, subcategory = "Display", left = "Rank", right = "Nick"
 	)
 	public boolean rankListDisplayType = false;
-	@DualOption(
-			name = "DataAddress", category = RANK, subcategory = "Data fetch", left = "Gitee", right = "Github",description = "The address where data fetch from"
-	)
-	public boolean dataSource = false;
 	@Button(
 			name = "Refresh Rank List", category = RANK, subcategory = "Data fetch", text = "Refresh Rank List"
 	)
 	public void refreshRankList() {
 		new Thread(RankList::getRankList).start();
+	}
+	@DualOption(
+			name = "DataAddress", category = GENERAL, subcategory = "Data fetch", left = "Gitee", right = "Github", description = "The address where data fetch from"
+	)
+	public boolean dataSource = false;
+	@Switch(
+			name = "Auto check update", category = GENERAL, subcategory = "Update"
+	)
+	public boolean checkUpdate = true;
+	@Button(
+			name = "Check update", category = RANK, subcategory = "Data fetch", text = "Refresh Rank List"
+	)
+	public void checkUpdat() {
+		new Thread(UpdateReminder::checkUpdate).start();
 	}
 	@Switch(
 			name = "Pixel Party Solver", category = MINIGAME, subcategory = "Pixel Party"
