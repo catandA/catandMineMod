@@ -21,7 +21,7 @@ public class UpdateReminder {
 		if (mc.thePlayer == null) return;
 		MinecraftForge.EVENT_BUS.unregister(this);
 		if (CatandMineMod.config.checkUpdate) {
-			checkUpdate();
+			new Thread(UpdateReminder::checkUpdate).start();
 		}
 	}
 
