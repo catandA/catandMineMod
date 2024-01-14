@@ -15,23 +15,23 @@ public class LogUtils {
 	}
 
 	public static void sendSuccess(String message) {
-		sendLog(new ChatComponentText("§2§lcatandMineMod §8» §a" + message));
+		sendLog(new ChatComponentText("§2§lCMM §8» §a" + message));
 	}
 
 	public static void sendWarning(String message) {
-		sendLog(new ChatComponentText("§6§lcatandMineMod §8» §e" + message));
+		sendLog(new ChatComponentText("§6§lCMM §8» §e" + message));
 	}
 
 	public static void sendError(String message) {
-		sendLog(new ChatComponentText("§4§lcatandMineMod §8» §c" + message));
+		sendLog(new ChatComponentText("§4§lCMM §8» §c" + message));
 	}
 
 	public static void sendFailsafeMessage(String message) {
-		sendLog(new ChatComponentText("§5§lcatandMineMod §8» §d§l" + message));
+		sendLog(new ChatComponentText("§5§lCMM §8» §d§l" + message));
 	}
 
 	public static void sendLink(String message, String url, String description) {
-		ChatComponentText chat = new ChatComponentText("§f§lcatandMineMod §8» §f" + message);
+		ChatComponentText chat = new ChatComponentText("§f§lCMM §8» §f" + message);
 		ChatStyle style = new ChatStyle();
 		style.setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
 		style.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(description)));
