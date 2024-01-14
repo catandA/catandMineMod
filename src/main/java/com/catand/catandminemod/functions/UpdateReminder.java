@@ -12,9 +12,9 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import static com.catand.catandminemod.CatandMineMod.mc;
 
 public class UpdateReminder {
-	public static JsonObject versionJson;
-	public static final String VERSION_GITEE_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank_v2/raw/master/Version.json";
-	public static final String VERSION_GITHUB_URL = "https://raw.githubusercontent.com/catandA/catandMineModCustomRank_v2/master/Version.json";
+	private static JsonObject versionJson;
+	private static final String VERSION_GITEE_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank_v2/raw/master/Version.json";
+	private static final String VERSION_GITHUB_URL = "https://raw.githubusercontent.com/catandA/catandMineModCustomRank_v2/master/Version.json";
 
 	@SubscribeEvent
 	public void onTick(TickEvent.ClientTickEvent event) {

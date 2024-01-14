@@ -16,10 +16,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RankList {
-	public static JsonObject rankJson;
+	private static JsonObject rankJson;
 	public static ConcurrentHashMap<String, RankUser> rankMap = new ConcurrentHashMap<>();
-	public static final String RANKLIST_GITEE_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank_v2/raw/master/CustomRank.json";
-	public static final String RANKLIST_GITHUB_URL = "https://raw.githubusercontent.com/catandA/catandMineModCustomRank_v2/master/CustomRank.json";
+	private static final String RANKLIST_GITEE_URL = "https://gitee.com/catandA/catand-mine-mod-custom-rank_v2/raw/master/CustomRank.json";
+	private static final String RANKLIST_GITHUB_URL = "https://raw.githubusercontent.com/catandA/catandMineModCustomRank_v2/master/CustomRank.json";
 	static final int MAX_RETRIES = 3;
 
 	public static void getRankList() {
