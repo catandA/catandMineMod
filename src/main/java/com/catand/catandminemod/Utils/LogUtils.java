@@ -29,6 +29,7 @@ public class LogUtils {
 	public static void sendFailsafeMessage(String message) {
 		sendLog(new ChatComponentText("§5§lcatandMineMod §8» §d§l" + message));
 	}
+
 	public static void sendLink(String message, String url, String description) {
 		ChatComponentText chat = new ChatComponentText("§f§lcatandMineMod §8» §f" + message);
 		ChatStyle style = new ChatStyle();
