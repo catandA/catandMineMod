@@ -15,21 +15,24 @@ public class LogUtils {
 	}
 
 	public static void sendSuccess(String message) {
-		String[] lines = message.split("\\n");
+		message = message.replace("\\n", System.lineSeparator());
+		String[] lines = message.split(System.lineSeparator());
 		for (String line : lines) {
 			sendLog(new ChatComponentText("§2§lCMM §8» §a" + line));
 		}
 	}
 
 	public static void sendWarning(String message) {
-		String[] lines = message.split("\\n");
+		message = message.replace("\\n", System.lineSeparator());
+		String[] lines = message.split(System.lineSeparator());
 		for (String line : lines) {
 			sendLog(new ChatComponentText("§6§lCMM §8» §e" + line));
 		}
 	}
 
 	public static void sendError(String message) {
-		String[] lines = message.split("\\n");
+		message = message.replace("\\n", System.lineSeparator());
+		String[] lines = message.split(System.lineSeparator());
 		for (String line : lines) {
 			sendLog(new ChatComponentText("§4§lCMM §8» §c" + line));
 		}

@@ -47,21 +47,21 @@ public class UpdateReminder {
 			LogUtils.sendWarning("catandMineMod有新版本: " + version + ", 当前版本: " + CatandMineMod.MODVERSION);
 			LogUtils.sendError("看起来你落后一个大版本了 :/");
 			LogUtils.sendError("旧版的rank列表不再更新敖");
-			LogUtils.sendWarning("更新日志: \n" + changeLog);
+			LogUtils.sendWarning("更新日志: " + System.lineSeparator() + changeLog);
 			if (haveUrl) {
 				LogUtils.sendLink("下载地址: " + updateUrl, updateUrl, "点击下载新版本");
 			}
 		} else if (versionNumbers[0] == modVersionNumbers[0]) {
 			if (versionNumbers[1] > modVersionNumbers[1]) {
 				LogUtils.sendWarning("catandMineMod有新版本: " + version);
-				LogUtils.sendWarning("更新日志: \n" + changeLog);
+				LogUtils.sendWarning("更新日志: " + System.lineSeparator() + changeLog);
 				if (haveUrl) {
 					LogUtils.sendLink("下载地址: " + updateUrl, updateUrl, "点击下载新版本");
 				}
 			} else if (versionNumbers[1] == modVersionNumbers[1]) {
 				if (versionNumbers[2] > modVersionNumbers[2]) {
 					LogUtils.sendWarning("catandMineMod有新版本: " + version);
-					LogUtils.sendWarning("更新日志: \n" + changeLog);
+					LogUtils.sendWarning("更新日志: " + System.lineSeparator() + changeLog);
 					if (haveUrl) {
 						LogUtils.sendLink("下载地址: " + updateUrl, updateUrl, "点击下载新版本");
 					}
