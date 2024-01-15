@@ -5,12 +5,7 @@ import com.catand.catandminemod.functions.CMMChat;
 import com.catand.catandminemod.functions.ChatSender;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.minecraft.util.ChatComponentText;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import org.java_websocket.client.WebSocketClient;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public enum MessageType {
 	//身份验证
@@ -27,11 +22,12 @@ public enum MessageType {
 	CHAT {
 		@Override
 		public void handleMessage(WebSocketClient client, JsonObject msgJson) {
+			String sender = msgJson.get("sender").getAsString();
 			String message = msgJson.get("message").getAsString();
 			if (message == null) {
 				ChatSender.sendError("消息内容为空", 0);
 			} else {
-				LogUtils.sendChat(message);
+				LogUtils.sendChat("[norank] " + sender + ": " + message);
 			}
 		}
 	},
