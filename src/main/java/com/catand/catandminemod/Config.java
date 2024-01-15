@@ -5,11 +5,13 @@ import cc.polyfrost.oneconfig.config.annotations.DualOption;
 import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
+import com.catand.catandminemod.functions.CMMChat;
 import com.catand.catandminemod.functions.RankList;
 import com.catand.catandminemod.functions.UpdateReminder;
 
 public class Config extends cc.polyfrost.oneconfig.config.Config {
 	private transient static final String RANK = "Rank";
+	private transient static final String CHAT = "Chat";
 	private transient static final String GENERAL = "General";
 	private transient static final String SKYBLOCK = "Skyblock";
 	private transient static final String MINIGAME = "Minigame";
@@ -39,6 +41,18 @@ public class Config extends cc.polyfrost.oneconfig.config.Config {
 		new Thread(RankList::getRankList).start();
 	}
 
+	@Switch(
+			name = "Auto connect to chat server", category = CHAT, subcategory = "Chat"
+	)
+	public boolean autoConnectToServer = true;
+
+	@Button(
+			name = "Reconnect to Server", category = CHAT, subcategory = "Chat", text = "Mandatory reconnect to the server"
+	)
+	public void reconnectToServer() {
+		new Thread(CMMChat::updateServerAndReconnect).start();
+	}
+
 	@DualOption(
 			name = "DataAddress", category = GENERAL, subcategory = "Data fetch", left = "Gitee", right = "Github", description = "The address where data fetch from"
 	)
@@ -49,7 +63,7 @@ public class Config extends cc.polyfrost.oneconfig.config.Config {
 	public boolean checkUpdate = true;
 
 	@Button(
-			name = "Check update", category = RANK, subcategory = "Data fetch", text = "Check update"
+			name = "Check update", category = GENERAL, subcategory = "Data fetch", text = "Check update"
 	)
 	public void checkUpdat() {
 		new Thread(UpdateReminder::checkUpdate).start();

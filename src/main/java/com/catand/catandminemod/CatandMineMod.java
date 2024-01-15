@@ -1,12 +1,11 @@
 package com.catand.catandminemod;
 
-import com.catand.catandminemod.functions.CustomRank;
-import com.catand.catandminemod.functions.PixelPartySolver;
-import com.catand.catandminemod.functions.RankList;
-import com.catand.catandminemod.functions.UpdateReminder;
+import com.catand.catandminemod.command.CMMChatCommand;
+import com.catand.catandminemod.functions.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -33,6 +32,9 @@ public class CatandMineMod {
 		MinecraftForge.EVENT_BUS.register(new PixelPartySolver());
 		MinecraftForge.EVENT_BUS.register(new CustomRank());
 		MinecraftForge.EVENT_BUS.register(new UpdateReminder());
+		MinecraftForge.EVENT_BUS.register(new CMMChat());
+		ClientCommandHandler.instance.registerCommand(new CMMChatCommand());
 		new Thread(RankList::getRankList).start();
+		new Thread(CMMChat::updateServerURL).start();
 	}
 }

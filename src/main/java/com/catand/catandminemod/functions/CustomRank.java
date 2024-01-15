@@ -101,7 +101,7 @@ public class CustomRank {
 			String nameColor = rankUser.getNameColor();
 			String bracketColor = rankUser.getBracketColor();
 
-			String reg = "(§7|§.\\[(MVP|VIP)] |§.\\[(MVP|VIP)(§.)*\\++(§.)*] |(§.)*\\[(§.)*\\d+(§.)*] )(§.)*" + name;
+			String reg = "(§7|§.\\[(MVP|VIP)] |§.\\[(MVP|VIP)(§.)*\\++(§.)*] |(§.)*\\[(§.)*\\d+(§.)*] |\\[norank] )(§.)*" + name;
 			message = message.replaceAll(reg, "ᄅ");
 
 			String dst = nameColor + name + "&r";

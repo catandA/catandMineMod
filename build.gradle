@@ -50,7 +50,9 @@ dependencies {
 		exclude module: 'gson'
 	}
 	annotationProcessor 'org.spongepowered:mixin:0.7.11-SNAPSHOT'
+	implementation 'org.java-websocket:Java-WebSocket:1.5.2'
 	compileOnly("cc.polyfrost:oneconfig-1.8.9-forge:0.2.0-alpha+")
+	embed 'org.java-websocket:Java-WebSocket:1.5.2'
 	embed("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")
 }
 
