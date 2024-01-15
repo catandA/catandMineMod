@@ -1,2 +1,2 @@
-# forge-mixin-example
-An example for using Mixin in Minecraft Forge
+# CatandMineMod
+我也不知道要写什么 :/
