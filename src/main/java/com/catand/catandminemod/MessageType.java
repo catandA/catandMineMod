@@ -1,8 +1,8 @@
 package com.catand.catandminemod;
 
-import com.catand.catandminemod.Utils.ChatMsgUtils;
 import com.catand.catandminemod.Utils.LogUtils;
 import com.catand.catandminemod.functions.CMMChat;
+import com.catand.catandminemod.functions.ChatSender;
 import com.google.gson.JsonObject;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -28,7 +28,7 @@ public enum MessageType {
 			String message = msgJson.get("message").getAsString();
 			new ClientChatReceivedEvent((byte) 0, new ChatComponentText("§f§lCMMChat §8» §f" + message));
 			if (message == null) {
-				client.send(ChatMsgUtils.sendErrorJson("消息内容为空"));
+				ChatSender.sendError("消息内容为空", 0);
 			} else {
 				LogUtils.sendChat(message);
 			}
@@ -75,10 +75,11 @@ public enum MessageType {
 		public void handleMessage(WebSocketClient client, JsonObject msgJson) {
 			String message = msgJson.get("message").getAsString();
 			if (message == null) {
-				client.send(ChatMsgUtils.sendErrorJson("错误信息为空"));
+				ChatSender.sendError("错误信息为空", 0);
 			} else {
 				LogUtils.sendErrorChat(message);
 			}
+
 		}
 	},
 	//链接

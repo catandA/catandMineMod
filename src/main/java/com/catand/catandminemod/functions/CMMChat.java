@@ -99,7 +99,7 @@ public class CMMChat {
 	public static WebSocketClient getClient() {
 		if (client == null || client.isClosed()) {
 			try {
-				if (serverUrl.isEmpty()){
+				if (serverUrl.isEmpty()) {
 					updateServerURL();
 				}
 				client = new CMMWebSocketClient(new URI(serverUrl));

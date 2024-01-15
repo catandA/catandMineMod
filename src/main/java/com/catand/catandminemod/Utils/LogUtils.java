@@ -1,7 +1,6 @@
 package com.catand.catandminemod.Utils;
 
 import com.catand.catandminemod.functions.CustomRank;
-import net.minecraft.client.Minecraft;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
@@ -56,6 +55,7 @@ public class LogUtils {
 	public static void sendChat(String message) {
 		sendLog((ChatComponentText) CustomRank.convert(new ChatComponentText("§f§lCMMChat §8» §f" + message)));
 	}
+
 	public static void sendSuccessChat(String message) {
 		message = message.replace("\\n", System.lineSeparator());
 		String[] lines = message.split(System.lineSeparator());

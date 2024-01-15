@@ -1,6 +1,5 @@
 package com.catand.catandminemod.command;
 
-import com.catand.catandminemod.functions.CMMChat;
 import com.catand.catandminemod.functions.ChatSender;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;

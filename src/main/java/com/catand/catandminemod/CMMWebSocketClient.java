@@ -1,6 +1,5 @@
 package com.catand.catandminemod;
 
-import com.catand.catandminemod.Utils.ChatMsgUtils;
 import com.catand.catandminemod.Utils.LogUtils;
 import com.catand.catandminemod.functions.CMMChat;
 import com.catand.catandminemod.functions.ChatSender;
@@ -37,13 +36,13 @@ public class CMMWebSocketClient extends WebSocketClient {
 		JsonObject msgJson = gson.fromJson(message, JsonObject.class);
 		String type = msgJson.get("type").getAsString();
 		if (type == null) {
-			this.send(ChatMsgUtils.sendErrorJson("消息类型错误"));
+			ChatSender.sendError("消息类型为空", 0);
 		}
 		try {
 			MessageType messageType = MessageType.valueOf(type.toUpperCase());
 			messageType.handleMessage(this, msgJson);
 		} catch (IllegalArgumentException e) {
-			this.send(ChatMsgUtils.sendErrorJson("无效的消息类型"));
+			ChatSender.sendError("无效的消息类型", 0);
 		}
 	}
 
