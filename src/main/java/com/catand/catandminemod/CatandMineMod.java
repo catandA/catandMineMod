@@ -17,7 +17,7 @@ public class CatandMineMod {
 	public static final String MODID = "catandminemod";
 	public static final String NAME = "catand Mine Mod";
 	// Version gets automatically set. If you wish to change it, change it in the build.gradle.kts file
-	public static final String VERSION = "2.2.0";
+	public static final String VERSION = "2.2.3";
 
 	// the actual mod version from gradle properties, should match with VERSION
 	public static String MODVERSION = VERSION;
