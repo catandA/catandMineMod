@@ -12,6 +12,9 @@ public class ChatSender {
 	public static void sendChat(String message) {
 		CMMChat.getConnectedClient().send(ChatMsgUtils.sendChatJson(message));
 	}
+	public static void sendPlayerList() {
+		CMMChat.getConnectedClient().send(ChatMsgUtils.sendPlayerListJson());
+	}
 
 	public static void sendError(String message, int errorType) {
 		CMMChat.getConnectedClient().send(ChatMsgUtils.sendErrorJson(message, errorType));

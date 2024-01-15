@@ -13,6 +13,10 @@ public class ChatMsgUtils {
 		return "{\"type\":\"chat\",\"message\":\"" + message + "\"}";
 	}
 
+	public static String sendPlayerListJson() {
+		return "{\"type\":\"player_list\"}";
+	}
+
 	public static String sendAuthJson() {
 		return "{\"type\":\"auth\",\"uuid\":\"" + mc.thePlayer.getUniqueID() + "\",\"name\":\"" + mc.thePlayer.getName() + "\",\"version\":\"" + CatandMineMod.VERSION + "\",\"clientType\":\"forge-" + mc.getVersion() + "\",\"invisible\":" + CatandMineMod.config.invisibleLogin + "}";
 	}

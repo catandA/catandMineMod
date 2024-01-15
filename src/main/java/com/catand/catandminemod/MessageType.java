@@ -3,12 +3,14 @@ package com.catand.catandminemod;
 import com.catand.catandminemod.Utils.LogUtils;
 import com.catand.catandminemod.functions.CMMChat;
 import com.catand.catandminemod.functions.ChatSender;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import org.java_websocket.client.WebSocketClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum MessageType {
 	//身份验证
@@ -26,7 +28,6 @@ public enum MessageType {
 		@Override
 		public void handleMessage(WebSocketClient client, JsonObject msgJson) {
 			String message = msgJson.get("message").getAsString();
-			new ClientChatReceivedEvent((byte) 0, new ChatComponentText("§f§lCMMChat §8» §f" + message));
 			if (message == null) {
 				ChatSender.sendError("消息内容为空", 0);
 			} else {
@@ -66,7 +67,14 @@ public enum MessageType {
 	PLAYER_LIST {
 		@Override
 		public void handleMessage(WebSocketClient client, JsonObject msgJson) {
+			JsonArray playersArray = msgJson.getAsJsonArray("players");
+			StringBuilder onlinePlayers = new StringBuilder("在线玩家: ");
 
+			for (int i = 0; i < playersArray.size(); i++) {
+				onlinePlayers.append("[norank] ");
+				onlinePlayers.append(playersArray.get(i).getAsJsonObject().get("name").getAsString()).append(", ");
+			}
+			LogUtils.sendChat(onlinePlayers.toString());
 		}
 	},
 	//错误
@@ -89,8 +97,6 @@ public enum MessageType {
 
 		}
 	};
-
-	private static final Logger logger = LoggerFactory.getLogger(MessageType.class);
 
 	public abstract void handleMessage(WebSocketClient client, JsonObject msgJson);
 }
