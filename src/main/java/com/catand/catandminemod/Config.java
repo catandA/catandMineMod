@@ -45,6 +45,10 @@ public class Config extends cc.polyfrost.oneconfig.config.Config {
 			name = "Auto connect to chat server", category = CHAT, subcategory = "Chat"
 	)
 	public boolean autoConnectToServer = true;
+	@Switch(
+			name = "Invisible login in chat server", category = CHAT, subcategory = "Chat"
+	)
+	public boolean invisibleLogin = true;
 
 	@Button(
 			name = "Reconnect to Server", category = CHAT, subcategory = "Chat", text = "Mandatory reconnect to the server"
