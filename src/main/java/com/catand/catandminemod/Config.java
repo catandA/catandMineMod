@@ -49,7 +49,7 @@ public class Config extends cc.polyfrost.oneconfig.config.Config {
 	public boolean checkUpdate = true;
 
 	@Button(
-			name = "Check update", category = RANK, subcategory = "Data fetch", text = "Refresh Rank List"
+			name = "Check update", category = RANK, subcategory = "Data fetch", text = "Check update"
 	)
 	public void checkUpdat() {
 		new Thread(UpdateReminder::checkUpdate).start();
