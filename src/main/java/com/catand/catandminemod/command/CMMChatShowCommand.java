@@ -6,7 +6,6 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
 
 import static com.catand.catandminemod.CatandMineMod.mc;
 
@@ -18,7 +17,7 @@ public class CMMChatShowCommand extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return "/mcshow <helmet|chestplate|leggings|boots>";
+		return "/mcshow <helmet|chestplate|leggings|boots|suit|头盔|胸甲|裤子|鞋子|全身>";
 	}
 
 	@Override
@@ -27,25 +26,32 @@ public class CMMChatShowCommand extends CommandBase {
 		InventoryPlayer inventoryPlayer = mc.thePlayer.inventory;
 		if (inventoryPlayer == null) return;
 		if (args.length == 0) {
-			ChatSender.sendShow("hand",inventoryPlayer.getCurrentItem());
+			ChatSender.sendShow("hand", inventoryPlayer.getCurrentItem());
 		}
 		if (args.length == 1) {
 			switch (args[0]) {
 				case "helmet":
 				case "头盔":
-					ChatSender.sendShow("helmet",inventoryPlayer.armorItemInSlot(3));
+					ChatSender.sendShow("helmet", inventoryPlayer.armorItemInSlot(3));
 					break;
 				case "chestplate":
 				case "胸甲":
-					ChatSender.sendShow("chestplate",inventoryPlayer.armorItemInSlot(2));
+					ChatSender.sendShow("chestplate", inventoryPlayer.armorItemInSlot(2));
 					break;
 				case "leggings":
 				case "裤子":
-					ChatSender.sendShow("leggings",inventoryPlayer.armorItemInSlot(1));
+					ChatSender.sendShow("leggings", inventoryPlayer.armorItemInSlot(1));
 					break;
 				case "boots":
 				case "鞋子":
-					ChatSender.sendShow("boots",inventoryPlayer.armorItemInSlot(0));
+					ChatSender.sendShow("boots", inventoryPlayer.armorItemInSlot(0));
+					break;
+				case "suit":
+				case "全身":
+					ChatSender.sendShow("helmet", inventoryPlayer.armorItemInSlot(3));
+					ChatSender.sendShow("chestplate", inventoryPlayer.armorItemInSlot(2));
+					ChatSender.sendShow("leggings", inventoryPlayer.armorItemInSlot(1));
+					ChatSender.sendShow("boots", inventoryPlayer.armorItemInSlot(0));
 					break;
 				default:
 					LogUtils.sendErrorChat("无效的参数");

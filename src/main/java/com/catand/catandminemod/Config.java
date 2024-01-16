@@ -2,6 +2,7 @@ package com.catand.catandminemod;
 
 import cc.polyfrost.oneconfig.config.annotations.Button;
 import cc.polyfrost.oneconfig.config.annotations.DualOption;
+import cc.polyfrost.oneconfig.config.annotations.Slider;
 import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
@@ -49,6 +50,11 @@ public class Config extends cc.polyfrost.oneconfig.config.Config {
 			name = "Invisible login in chat server", category = CHAT, subcategory = "Chat"
 	)
 	public boolean invisibleLogin = true;
+
+	@Slider(
+			name = "Chat server reconnect interval", category = CHAT, subcategory = "Chat", min = 2, max = 60, description = "The interval of reconnect to chat server"
+	)
+	public int reconnectInterval = 10;
 
 	@Button(
 			name = "Mandatory reconnect to Server", category = CHAT, subcategory = "Chat", text = "Reconnect"

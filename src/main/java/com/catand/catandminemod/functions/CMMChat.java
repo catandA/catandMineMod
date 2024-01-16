@@ -2,6 +2,7 @@ package com.catand.catandminemod.functions;
 
 import com.catand.catandminemod.CMMWebSocketClient;
 import com.catand.catandminemod.CatandMineMod;
+import com.catand.catandminemod.Utils.Clock;
 import com.catand.catandminemod.Utils.HttpUtils;
 import com.catand.catandminemod.Utils.LogUtils;
 import com.google.gson.Gson;
@@ -29,14 +30,16 @@ public class CMMChat {
 	private static int socketId = 0;
 	private static String serverUrl = "";
 	public static boolean isAuthed = false;
+	private Clock clock = new Clock();
 
 	@SubscribeEvent
 	public void onTick(TickEvent.ClientTickEvent event) {
 		if (mc.thePlayer == null) return;
-		if (CatandMineMod.config.autoConnectToServer && !getClient().isOpen() && !isConnecting) {
+		if (CatandMineMod.config.autoConnectToServer && !getClient().isOpen() && !isConnecting && clock.passed()) {
 			LogUtils.sendChat("正在连接服务器...");
 			isConnecting = true;
 			getConnectedClient();
+			clock.schedule((long) CatandMineMod.config.reconnectInterval * 1000);
 		}
 	}
 
