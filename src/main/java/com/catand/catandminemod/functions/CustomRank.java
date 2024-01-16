@@ -101,7 +101,7 @@ public class CustomRank {
 			String nameColor = rankUser.getNameColor();
 			String bracketColor = rankUser.getBracketColor();
 
-			String reg = "(§7|§.\\[(MVP|VIP)] |§.\\[(MVP|VIP)(§.)*\\++(§.)*] |(§.)*\\[(§.)*\\d+(§.)*] |\\[norank] )(§.)*" + name;
+			String reg = "(§7|§.\\[(MVP|VIP)] |§.\\[(MVP|VIP)(§.)*\\++(§.)*] |(§.)*\\[(§.)*\\d+(§.)*] )(§.)*" + name;
 			message = message.replaceAll(reg, "ᄅ");
 
 			String dst = nameColor + name + "&r";
@@ -208,7 +208,7 @@ public class CustomRank {
 		return ChatLib.addColor(message);
 	}
 
-	private static List<IChatComponent> compactSiblings(List<IChatComponent> siblings) {
+	public static List<IChatComponent> compactSiblings(List<IChatComponent> siblings) {
 		StringBuilder str = new StringBuilder();
 		List<IChatComponent> res = new ArrayList<>();
 		for (IChatComponent component : siblings) {

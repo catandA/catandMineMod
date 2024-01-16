@@ -64,13 +64,29 @@ public enum MessageType {
 		@Override
 		public void handleMessage(WebSocketClient client, JsonObject msgJson) {
 			JsonArray playersArray = msgJson.getAsJsonArray("players");
-			StringBuilder onlinePlayers = new StringBuilder("在线玩家: ");
+			StringBuilder onlinePlayers = new StringBuilder("在线玩家(" + msgJson.get("amount").getAsInt() + "): ");
 
 			for (int i = 0; i < playersArray.size(); i++) {
 				onlinePlayers.append("[norank] ");
 				onlinePlayers.append(playersArray.get(i).getAsJsonObject().get("name").getAsString()).append(", ");
 			}
 			LogUtils.sendChat(onlinePlayers.toString());
+		}
+	},
+	//玩家登录
+	JOIN {
+		@Override
+		public void handleMessage(WebSocketClient client, JsonObject msgJson) {
+			String name = msgJson.get("name").getAsString();
+			LogUtils.sendWarningChat("[norank] " + name + " 已上线");
+		}
+	},
+	//玩家离开
+	LEAVE {
+		@Override
+		public void handleMessage(WebSocketClient client, JsonObject msgJson) {
+			String name = msgJson.get("name").getAsString();
+			LogUtils.sendWarningChat("[norank] " + name + " 已下线");
 		}
 	},
 	//错误
