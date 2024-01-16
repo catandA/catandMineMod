@@ -51,7 +51,7 @@ public class Config extends cc.polyfrost.oneconfig.config.Config {
 	public boolean invisibleLogin = true;
 
 	@Button(
-			name = "Reconnect to Server", category = CHAT, subcategory = "Chat", text = "Mandatory reconnect to the server"
+			name = "Mandatory reconnect to Server", category = CHAT, subcategory = "Chat", text = "Reconnect"
 	)
 	public void reconnectToServer() {
 		new Thread(CMMChat::updateServerAndReconnect).start();
