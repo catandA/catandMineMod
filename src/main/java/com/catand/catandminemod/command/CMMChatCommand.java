@@ -14,7 +14,7 @@ public class CMMChatCommand extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return "/mc";
+		return "/mc <消息>";
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package com.catand.catandminemod.functions;
 
 import com.catand.catandminemod.Utils.ChatMsgUtils;
 import com.catand.catandminemod.Utils.LogUtils;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class ChatSender {
 	public static void sendAuth() {
@@ -12,8 +14,13 @@ public class ChatSender {
 	public static void sendChat(String message) {
 		CMMChat.getConnectedClient().send(ChatMsgUtils.sendChatJson(message));
 	}
+
 	public static void sendPlayerList() {
 		CMMChat.getConnectedClient().send(ChatMsgUtils.sendPlayerListJson());
+	}
+
+	public static void sendShow(String slot, ItemStack itemStack) {
+		CMMChat.getConnectedClient().send(ChatMsgUtils.sendShowJson(slot, itemStack));
 	}
 
 	public static void sendError(String message, int errorType) {

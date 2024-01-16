@@ -21,8 +21,9 @@ public class LogUtils {
 		if (mc.thePlayer != null)
 			mc.thePlayer.addChatMessage(chat);
 	}
+
 	public synchronized static void sendConvertedLog(ChatComponentText chat) {
-		if (mc.thePlayer != null){
+		if (mc.thePlayer != null) {
 			chat = (ChatComponentText) convert(chat);
 			mc.thePlayer.addChatMessage(chat);
 		}
@@ -96,6 +97,19 @@ public class LogUtils {
 			sendConvertedLog(new ChatComponentText("§4§lCMMChat §8» §c" + line));
 		}
 	}
+
+	public static void sendShowChat(String message, String displayName, String nbt) {
+		ChatComponentText chat = new ChatComponentText("§f§lCMMChat §8» §f" + message);
+
+		IChatComponent itemComponent = new ChatComponentText("[" + displayName + "]");
+		ChatStyle itemStyle = new ChatStyle();
+		itemStyle.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new ChatComponentText(nbt)));
+		itemComponent.setChatStyle(itemStyle);
+
+		chat.appendSibling(itemComponent);
+		sendConvertedLog(chat);
+	}
+
 	public static IChatComponent convert(IChatComponent message) {
 		List<IChatComponent> siblings = message.getSiblings();
 		ChatStyle style = message.getChatStyle();

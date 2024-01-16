@@ -2,6 +2,7 @@ package com.catand.catandminemod;
 
 import com.catand.catandminemod.command.CMMChatCommand;
 import com.catand.catandminemod.command.CMMChatPlayerListCommand;
+import com.catand.catandminemod.command.CMMChatShowCommand;
 import com.catand.catandminemod.functions.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,6 +37,7 @@ public class CatandMineMod {
 		MinecraftForge.EVENT_BUS.register(new CMMChat());
 		ClientCommandHandler.instance.registerCommand(new CMMChatCommand());
 		ClientCommandHandler.instance.registerCommand(new CMMChatPlayerListCommand());
+		ClientCommandHandler.instance.registerCommand(new CMMChatShowCommand());
 		new Thread(RankList::getRankList).start();
 		new Thread(CMMChat::updateServerURL).start();
 	}

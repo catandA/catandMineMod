@@ -35,7 +35,67 @@ public enum MessageType {
 	SHOW {
 		@Override
 		public void handleMessage(WebSocketClient client, JsonObject msgJson) {
-
+			String sender = msgJson.get("sender").getAsString();
+			String slot = msgJson.get("slot").getAsString();
+			String displayName = msgJson.get("displayName").getAsString();
+			String nbt = msgJson.get("nbt").getAsString();
+			int amount = msgJson.get("amount").getAsInt();
+			if (displayName == null || displayName.isEmpty() || nbt == null || nbt.isEmpty()) {
+				String name;
+				String lore;
+				switch (slot) {
+					case "hand":
+						name = "的沙包大的拳头";
+						lore = "damage+250";
+						break;
+					case "helmet":
+						name = "的空空如也的大脑";
+						lore = "intelligence-250";
+						break;
+					case "chestplate":
+						name = "的飞机场";
+						lore = "defence+250";
+						break;
+					case "leggings":
+						name = "的大腿";
+						lore = "speed-250";
+						break;
+					case "boots":
+						name = "的臭脚";
+						lore = "smell-250";
+						break;
+					default:
+						LogUtils.sendErrorChat(sender + "展示了未知物品");
+						return;
+				}
+				String nbtString = "{id:\"minecraft:stone\",Count:1b,tag:{display:{Name:\"" + sender + name + "\",Lore:[\"" + lore + "\"]}},Damage:0s}";
+				LogUtils.sendShowChat("[norank] " + sender + "展示了", sender + name, nbtString);
+			} else {
+				switch (slot) {
+					case "hand":
+						if (amount == 1)
+							LogUtils.sendShowChat("[norank] " + sender + "手拿", displayName, nbt);
+						else {
+							LogUtils.sendShowChat("[norank] " + sender + "手拿" + amount + "个", displayName, nbt);
+						}
+						break;
+					case "helmet":
+						LogUtils.sendShowChat("[norank] " + sender + "头戴", displayName, nbt);
+						break;
+					case "chestplate":
+						LogUtils.sendShowChat("[norank] " + sender + "身披", displayName, nbt);
+						break;
+					case "leggings":
+						LogUtils.sendShowChat("[norank] " + sender + "鸟挂", displayName, nbt);
+						break;
+					case "boots":
+						LogUtils.sendShowChat("[norank] " + sender + "脚踩", displayName, nbt);
+						break;
+					default:
+						LogUtils.sendErrorChat(sender + "展示了未知物品");
+						break;
+				}
+			}
 		}
 	},
 	//广播
