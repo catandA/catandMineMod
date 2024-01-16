@@ -49,7 +49,7 @@ public class Config extends cc.polyfrost.oneconfig.config.Config {
 	@Switch(
 			name = "Invisible login in chat server", category = CHAT, subcategory = "Chat"
 	)
-	public boolean invisibleLogin = true;
+	public boolean invisibleLogin = false;
 
 	@Slider(
 			name = "Chat server reconnect interval", category = CHAT, subcategory = "Chat", min = 2, max = 60, description = "The interval of reconnect to chat server"
