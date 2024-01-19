@@ -1,9 +1,7 @@
 package com.catand.catandminemod;
 
-import cc.polyfrost.oneconfig.config.annotations.Button;
-import cc.polyfrost.oneconfig.config.annotations.DualOption;
-import cc.polyfrost.oneconfig.config.annotations.Slider;
-import cc.polyfrost.oneconfig.config.annotations.Switch;
+import cc.polyfrost.oneconfig.config.annotations.*;
+import cc.polyfrost.oneconfig.config.core.OneColor;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import com.catand.catandminemod.functions.CMMChat;
@@ -83,10 +81,18 @@ public class Config extends cc.polyfrost.oneconfig.config.Config {
 			name = "Pixel Party Solver", category = MINIGAME, subcategory = "Pixel Party"
 	)
 	public boolean pixelPartySolver = true;
+	@Color(
+			name = "Pixel Party Solver Color", category = MINIGAME, subcategory = "Pixel Party", description = "The color of the block overlay"
+	)
+	public OneColor pixelPartySolverColor = new OneColor(255, 255, 255, 255);
 	@Switch(
 			name = "Draw a line point to block", category = MINIGAME, subcategory = "Pixel Party"
 	)
 	public boolean pixelPartySolverLine = true;
+	@Color(
+			name = "Pixel Party Solver Line Color", category = MINIGAME, subcategory = "Pixel Party", description = "The color of the line"
+	)
+	public OneColor pixelPartySolverLineColor = new OneColor(255, 0, 0, 255);
 
 	public Config() {
 		super(new Mod("catand Mine Mod", ModType.HYPIXEL, "/assets/bps.png"), "/catandminemod/config.json");

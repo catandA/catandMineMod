@@ -91,12 +91,14 @@ public class PixelPartySolver {
 
 	@SubscribeEvent
 	public void onRender(RenderWorldLastEvent event) {
+		Color color = CatandMineMod.config.pixelPartySolverColor.toJavaColor();
+		Color lineColor = CatandMineMod.config.pixelPartySolverLineColor.toJavaColor();
 		if (CatandMineMod.config.pixelPartySolver && positions != null && currentColorBlock instanceof BlockColored) {
 			for (BlockPos position : positions) {
 				if (mc.theWorld != null) {
-					Utils.BoxWithTopESP(position, new Color(255, 255, 255, 255), false);
+					Utils.BoxWithTopESP(position, color, false);
 					if (CatandMineMod.config.pixelPartySolverLine) {
-						Utils.renderTrace(closestPos, new Color(255, 0, 0, 255), 2);
+						Utils.renderTrace(closestPos, lineColor, 2);
 					}
 				}
 			}
